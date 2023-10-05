@@ -1,50 +1,79 @@
 #include "Matrix.h"
 
-Matrix::Matrix(int& size)
+Matrix::Matrix(const size_t& size)
 {
+	outputWide = defaultOutputWide;
+
 	this->size = size;
-	values = new double*[size];
-	for (int i = 0; i < size; i++)
+
+	values = new double* [size];
+	for (size_t i = 0; i < size; i++)
 	{
 		values[i] = new double[size];
 	}
 
-	DummyDataInitialization();
+	dummy_data_initialization();
 }
 
 Matrix::~Matrix()
 {
+	for (size_t i = 0; i < size; i++)
+	{
+		delete[] values[i];
+	}
 	delete[] values;
 }
 
-std::string Matrix::toString() const
+std::string Matrix::to_string() const
 {
 	std::stringstream string;
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (size_t j = 0; j < size; j++)
 		{
-			string << values[i][j] << " ";
+			string << values[i][j] << std::setw(outputWide);
 		}
-		string << std::endl;
+		string << std::setw(0) << std::endl;
 	}
 	return string.str();
 }
 
-void Matrix::DummyDataInitialization()
+size_t Matrix::get_size() const
 {
-	for (int i = 0; i < size; i++)
+	return size;
+}
+
+void Matrix::set_output_wide(size_t& outputWide)
+{
+	this->outputWide = outputWide;
+}
+
+void Matrix::dummy_data_initialization()
+{
+	for (size_t i = 0; i < size; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (size_t j = 0; j < size; j++)
 		{
 			values[i][j] = i;
 		}
 	}
 }
 
+Vector operator*(const Matrix& m, const Vector& v)
+{
+	Vector result(m.size);
+
+	for (size_t i = 0; i < m.size; i++)
+	{
+		*result[i] = m.values[i] * v;
+	}
+
+	return result;
+}
+
 std::ostream& operator<<(std::ostream& out, const Matrix& matrix)
 {
-	out << matrix.toString();
+	out << matrix.to_string();
 
 	return out;
 }
