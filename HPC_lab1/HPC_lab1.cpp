@@ -11,11 +11,14 @@ int main()
 
     Matrix matrix(size);
     Vector vector(size);
-    vector.dummy_vector_generation();
+    //matrix.dummy_data_initialization();
+    //vector.dummy_data_initialization();
+    matrix.random_data_initialization();
+    vector.random_data_initialization();
 
     Vector result = matrix * vector;
 
-    size_t outputWide = std::to_string(size).length() + 1;
+    size_t outputWide = 10;
 
     matrix.set_output_wide(outputWide);
     

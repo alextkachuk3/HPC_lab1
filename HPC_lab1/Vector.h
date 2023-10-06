@@ -8,7 +8,8 @@ public:
 	Vector(const size_t& size);
 	~Vector();
 
-	void dummy_vector_generation();
+	void dummy_data_initialization();
+	void random_data_initialization();
 
 	std::string to_string() const;
 
@@ -22,4 +23,3 @@ private:
 	size_t size;
 	double* values;
 };
-

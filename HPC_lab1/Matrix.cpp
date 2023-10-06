@@ -9,10 +9,8 @@ Matrix::Matrix(const size_t& size)
 	values = new double* [size];
 	for (size_t i = 0; i < size; i++)
 	{
-		values[i] = new double[size];
+		values[i] = new double[size] {0};
 	}
-
-	dummy_data_initialization();
 }
 
 Matrix::~Matrix()
@@ -31,7 +29,7 @@ std::string Matrix::to_string() const
 	{
 		for (size_t j = 0; j < size; j++)
 		{
-			string << values[i][j] << std::setw(outputWide);
+			string << std::setw(outputWide) << values[i][j];
 		}
 		string << std::setw(0) << std::endl;
 	}
@@ -55,6 +53,18 @@ void Matrix::dummy_data_initialization()
 		for (size_t j = 0; j < size; j++)
 		{
 			values[i][j] = i;
+		}
+	}
+}
+
+void Matrix::random_data_initialization()
+{
+	srand(clock());
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			values[i][j] = rand() / 1000.0;
 		}
 	}
 }

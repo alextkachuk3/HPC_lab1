@@ -12,6 +12,7 @@ public:
 	~Matrix();
 
 	void dummy_data_initialization();
+	void random_data_initialization();
 
 	std::string to_string() const;
 

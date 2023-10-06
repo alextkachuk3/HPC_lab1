@@ -21,11 +21,20 @@ std::string Vector::to_string() const
 	return string.str();
 }
 
-void Vector::dummy_vector_generation()
+void Vector::dummy_data_initialization()
 {
 	for (size_t i = 0; i < size; i++)
 	{
 		values[i] = 1;
+	}
+}
+
+void Vector::random_data_initialization()
+{
+	srand(clock());
+	for (size_t i = 0; i < size; i++)
+	{
+		values[i] = rand() / 1000.0;
 	}
 }
 
