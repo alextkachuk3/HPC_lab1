@@ -6,26 +6,35 @@ HPC::HPC(int argc, char* argv[])
 	MPI_Comm_size(MPI_COMM_WORLD, &process_num);
 	MPI_Comm_rank(MPI_COMM_WORLD, &process_rank);
 
-	this->Log("Process started!");
-
-	if (process_rank == 0)
-	{
-		
-	}
+	this->log("Process started!");
 }
 
 HPC::~HPC()
 {
-	this->Log("Process ended!");
+	this->log("Process ended!");
 	MPI_Finalize();
 }
 
-Vector HPC::MatrixVectorMultiplication(const Matrix& matrix, const Vector& vector)
+Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vector)
 {
+	size_t size = matrix.get_size();
+	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
 	return Vector(0);
 }
 
-void HPC::Log(std::string message)
+void HPC::matrix_vector_multiplication_subprocess()
+{
+	size_t size = 0;
+	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
+	log(std::to_string(size));	
+}
+
+int HPC::get_process_rank()
+{
+	return process_rank;
+}
+
+void HPC::log(std::string message)
 {
 	std::cout << "Process " << process_rank << ": " << message << std::endl;
 }

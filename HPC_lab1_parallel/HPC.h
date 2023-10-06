@@ -9,10 +9,15 @@ class HPC
 public:
 	HPC(int argc, char* argv[]);
 	~HPC();
-	Vector MatrixVectorMultiplication(const Matrix& matrix, const Vector& vector);
+	Vector matrix_vector_multiplication(const Matrix& matrix, const Vector& vector);
+	void matrix_vector_multiplication_subprocess();
+
+	int get_process_rank();
+
+	size_t size = 0;
 
 private:
-	void Log(std::string message);
+	void log(std::string message);
 
 	int process_num;
 	int process_rank;

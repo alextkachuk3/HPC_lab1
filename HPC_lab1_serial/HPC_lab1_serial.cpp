@@ -9,7 +9,7 @@ int main()
 	size_t size;
 	double duration;
 
-	std::cout << "Enter size of matrix:";
+	std::cout << "Enter size of matrix and vector:";
 
 	std::cin >> size;
 
