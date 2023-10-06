@@ -3,7 +3,7 @@
 Vector::Vector(const size_t& size)
 {
 	this->size = size;
-	values = new double[size] {0};
+	values = new double[size];
 }
 
 Vector::~Vector()

@@ -52,7 +52,7 @@ void Matrix::dummy_data_initialization()
 	{
 		for (size_t j = 0; j < size; j++)
 		{
-			values[i][j] = i;
+			values[i][j] = (double)i;
 		}
 	}
 }

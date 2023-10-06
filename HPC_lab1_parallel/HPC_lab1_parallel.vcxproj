@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{80c82485-1a96-4c20-a7d3-4b912407da5c}</ProjectGuid>
-    <RootNamespace>HPClab1</RootNamespace>
+    <ProjectGuid>{671d3f06-9596-4d90-b4fa-c0a649869645}</ProjectGuid>
+    <RootNamespace>HPClab1parallel</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,15 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\HPC_lab1_serial\Matrix.cpp" />
+    <ClCompile Include="..\HPC_lab1_serial\Vector.cpp" />
     <ClCompile Include="HPC.cpp" />
-    <ClCompile Include="HPC_lab1.cpp" />
-    <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="HPC_lab1_parallel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\HPC_lab1_serial\Matrix.h" />
+    <ClInclude Include="..\HPC_lab1_serial\Vector.h" />
     <ClInclude Include="HPC.h" />
-    <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

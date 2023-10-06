@@ -1,6 +1,6 @@
 #pragma once
-#include "Vector.h"
-#include "Matrix.h"
+#include "../HPC_lab1_serial/Vector.h"
+#include "../HPC_lab1_serial/Matrix.h"
 
 class HPC
 {
