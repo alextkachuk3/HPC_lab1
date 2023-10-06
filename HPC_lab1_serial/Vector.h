@@ -10,10 +10,11 @@ public:
 
 	void dummy_data_initialization();
 	void random_data_initialization();
+	double* get_values() const;
 
 	std::string to_string() const;
 
-	friend double operator*(double*& m, const Vector& v);
+	friend double operator*(const double& matrix, const Vector& vector);
 
 	double* operator[](size_t index) const;
 

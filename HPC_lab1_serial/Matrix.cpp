@@ -6,19 +6,11 @@ Matrix::Matrix(const size_t& size)
 
 	this->size = size;
 
-	values = new double* [size];
-	for (size_t i = 0; i < size; i++)
-	{
-		values[i] = new double[size] {0};
-	}
+	values = new double[size * size];
 }
 
 Matrix::~Matrix()
 {
-	for (size_t i = 0; i < size; i++)
-	{
-		delete[] values[i];
-	}
 	delete[] values;
 }
 
@@ -29,7 +21,7 @@ std::string Matrix::to_string() const
 	{
 		for (size_t j = 0; j < size; j++)
 		{
-			string << std::setw(outputWide) << values[i][j];
+			string << std::setw(outputWide) << values[i * size + j];
 		}
 		string << std::setw(0) << std::endl;
 	}
@@ -52,7 +44,7 @@ void Matrix::dummy_data_initialization()
 	{
 		for (size_t j = 0; j < size; j++)
 		{
-			values[i][j] = (double)i;
+			values[i * size + j] = (double)i;
 		}
 	}
 }
@@ -64,7 +56,7 @@ void Matrix::random_data_initialization()
 	{
 		for (size_t j = 0; j < size; j++)
 		{
-			values[i][j] = rand() / 1000.0;
+			values[i * size + j] = rand() / 1000.0;
 		}
 	}
 }
@@ -75,7 +67,10 @@ Vector operator*(const Matrix& m, const Vector& v)
 
 	for (size_t i = 0; i < m.size; i++)
 	{
-		*result[i] = m.values[i] * v;
+		for (size_t j = 0; j < m.size; j++)
+		{
+			*result[i] = m.values[i * m.size + j] * v;
+		}
 	}
 
 	return result;

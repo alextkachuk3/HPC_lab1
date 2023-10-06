@@ -20,11 +20,12 @@ public:
 	void set_output_wide(size_t& outputWide);
 
 	friend Vector operator*(const Matrix& m, const Vector& v);
+
 	friend std::ostream& operator<< (std::ostream& out, const Matrix& matrix);
 
 private:
 	size_t size;
-	double** values;
+	double* values;
 
 	size_t outputWide;
 	const static size_t defaultOutputWide = 2;

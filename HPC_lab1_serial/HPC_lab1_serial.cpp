@@ -17,6 +17,8 @@ int main()
 
 	Matrix matrix(size);
 	Vector vector(size);
+	//matrix.dummy_data_initialization();
+	//vector.dummy_data_initialization();
 	matrix.random_data_initialization();
 	vector.random_data_initialization();
 

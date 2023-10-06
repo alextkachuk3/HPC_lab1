@@ -38,13 +38,18 @@ void Vector::random_data_initialization()
 	}
 }
 
-double operator*(double*& m, const Vector& v)
+double* Vector::get_values() const
+{
+	return values;
+}
+
+double operator*(const double& matrix, const Vector& vector)
 {
 	double result = 0.0;
 
-	for (size_t i = 0; i < v.size; i++)
+	for (size_t i = 0; i < vector.size; i++)
 	{
-		result += m[i] * v.values[i];
+		result += matrix * vector.values[i];
 	}
 
 	return result;

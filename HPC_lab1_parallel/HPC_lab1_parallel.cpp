@@ -16,10 +16,7 @@ int main(int argc, char* argv[])
 		matrix.random_data_initialization();
 		vector.random_data_initialization();
 
-		hpc.matrix_vector_multiplication(matrix, vector);
+		hpc.matrix_vector_multiplication_init(matrix, vector);
 	}
-	else
-	{
-		hpc.matrix_vector_multiplication_subprocess();
-	}
+	hpc.matrix_vector_multiplication();
 }

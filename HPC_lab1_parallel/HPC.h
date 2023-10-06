@@ -9,8 +9,8 @@ class HPC
 public:
 	HPC(int argc, char* argv[]);
 	~HPC();
-	Vector matrix_vector_multiplication(const Matrix& matrix, const Vector& vector);
-	void matrix_vector_multiplication_subprocess();
+	Vector matrix_vector_multiplication_init(const Matrix& matrix, const Vector& vector);
+	void matrix_vector_multiplication();
 
 	int get_process_rank();
 
