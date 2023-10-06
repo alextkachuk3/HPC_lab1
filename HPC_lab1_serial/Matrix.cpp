@@ -33,6 +33,11 @@ size_t Matrix::get_size() const
 	return size;
 }
 
+double* Matrix::get_values() const
+{
+	return values;
+}
+
 void Matrix::set_output_wide(size_t& outputWide)
 {
 	this->outputWide = outputWide;

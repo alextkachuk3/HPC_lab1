@@ -13,10 +13,22 @@ int main(int argc, char* argv[])
 
 		Matrix matrix(size);
 		Vector vector(size);
+
 		matrix.random_data_initialization();
 		vector.random_data_initialization();
 
-		hpc.matrix_vector_multiplication_init(matrix, vector);
+		size_t outputWide = 10;
+		size_t maxOutputMatrixSizeLimit = 15;
+
+		matrix.set_output_wide(outputWide);
+
+		std::cout << "Matrix" << std::endl << matrix;
+
+		hpc.matrix_vector_multiplication(matrix, vector);
 	}
-	hpc.matrix_vector_multiplication();
+	else
+	{
+		hpc.matrix_vector_multiplication();
+	}
+
 }

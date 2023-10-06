@@ -17,6 +17,7 @@ public:
 	std::string to_string() const;
 
 	size_t get_size() const;
+	double* get_values() const;
 	void set_output_wide(size_t& outputWide);
 
 	friend Vector operator*(const Matrix& m, const Vector& v);
