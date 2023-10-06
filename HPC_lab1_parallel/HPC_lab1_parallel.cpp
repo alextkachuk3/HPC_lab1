@@ -1,6 +1,7 @@
 #include <iostream>
+#include "HPC.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+	HPC hpc(argc, argv);
 }

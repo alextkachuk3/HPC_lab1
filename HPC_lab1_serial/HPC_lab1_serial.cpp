@@ -5,41 +5,41 @@
 
 int main()
 {
-    time_t start, finish;
-    size_t size;
-    double duration;
+	time_t start, finish;
+	size_t size;
+	double duration;
 
-    std::cout << "Enter size of matrix:";
-    
-    std::cin >> size;
+	std::cout << "Enter size of matrix:";
 
-    start = clock();
+	std::cin >> size;
 
-    Matrix matrix(size);
-    Vector vector(size);
-    matrix.random_data_initialization();
-    vector.random_data_initialization();
+	start = clock();
 
-    Vector result = matrix * vector;
+	Matrix matrix(size);
+	Vector vector(size);
+	matrix.random_data_initialization();
+	vector.random_data_initialization();
 
-    size_t outputWide = 10;
-    size_t maxOutputMatrixSizeLimit = 15;
+	Vector result = matrix * vector;
 
-    matrix.set_output_wide(outputWide);
+	size_t outputWide = 10;
+	size_t maxOutputMatrixSizeLimit = 15;
 
-    if (size <= maxOutputMatrixSizeLimit)
-    {
-        std::cout << "Matrix" << std::endl << matrix;
+	matrix.set_output_wide(outputWide);
 
-        std::cout << "Vector" << std::endl << vector;
+	if (size <= maxOutputMatrixSizeLimit)
+	{
+		std::cout << "Matrix" << std::endl << matrix;
 
-        std::cout << "Result vector:" << std::endl << result;
-    }
+		std::cout << "Vector" << std::endl << vector;
 
-    finish = clock();
+		std::cout << "Result vector:" << std::endl << result;
+	}
 
-    duration = (finish - start) / double(CLOCKS_PER_SEC);
+	finish = clock();
 
-    std::cout << std::endl << "Time of execution: " << duration << std::endl;
+	duration = (finish - start) / double(CLOCKS_PER_SEC);
+
+	std::cout << std::endl << "Time of execution: " << duration << std::endl;
 
 }

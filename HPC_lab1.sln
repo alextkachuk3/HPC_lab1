@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HPC_lab1_parallel", "HPC_lab1_parallel\HPC_lab1_parallel.vcxproj", "{671D3F06-9596-4D90-B4FA-C0A649869645}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HPC_lab1_serial", "HPC_lab1_serial\HPC_lab1.vcxproj", "{80C82485-1A96-4C20-A7D3-4B912407DA5C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HPC_lab1_serial", "HPC_lab1_serial\HPC_lab1_serial.vcxproj", "{80C82485-1A96-4C20-A7D3-4B912407DA5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
