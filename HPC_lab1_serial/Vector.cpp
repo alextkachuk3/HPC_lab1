@@ -3,7 +3,7 @@
 Vector::Vector(const size_t& size)
 {
 	this->size = size;
-	values = new double[size];
+	values = new double[size] {0};
 }
 
 Vector::~Vector()
@@ -41,18 +41,6 @@ void Vector::random_data_initialization()
 double* Vector::get_values() const
 {
 	return values;
-}
-
-double operator*(const double& matrix, const Vector& vector)
-{
-	double result = 0.0;
-
-	for (size_t i = 0; i < vector.size; i++)
-	{
-		result += matrix * vector.values[i];
-	}
-
-	return result;
 }
 
 std::ostream& operator<<(std::ostream& out, const Vector& vector)

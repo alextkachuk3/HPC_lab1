@@ -14,8 +14,6 @@ public:
 
 	std::string to_string() const;
 
-	friend double operator*(const double& matrix, const Vector& vector);
-
 	double* operator[](size_t index) const;
 
 	friend std::ostream& operator<< (std::ostream& out, const Vector& vector);

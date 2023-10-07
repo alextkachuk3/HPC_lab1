@@ -74,7 +74,7 @@ Vector operator*(const Matrix& m, const Vector& v)
 	{
 		for (size_t j = 0; j < m.size; j++)
 		{
-			*result[i] = m.values[i * m.size + j] * v;
+			*result[i] += m.values[i * m.size + j] * v.get_values()[j];
 		}
 	}
 
