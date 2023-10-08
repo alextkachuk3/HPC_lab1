@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
 
 		matrix.random_data_initialization();
 		vector.random_data_initialization();
+		matrix.dummy_data_initialization();
+		vector.dummy_data_initialization();
 
 		size_t outputWide = 10;
 		size_t maxOutputMatrixSizeLimit = 15;

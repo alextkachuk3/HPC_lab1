@@ -9,6 +9,7 @@ class Matrix
 {
 public:
 	Matrix(const size_t& size);
+	Matrix(double* values, const size_t& width, const size_t& height, const bool& delete_on_release = false);
 	~Matrix();
 
 	void dummy_data_initialization();
@@ -33,5 +34,5 @@ private:
 	bool delete_on_release;
 
 	size_t outputWide;
-	const static size_t defaultOutputWide = 2;
+	const static size_t defaultOutputWide = 7;
 };

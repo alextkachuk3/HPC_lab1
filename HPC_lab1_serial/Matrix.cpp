@@ -8,11 +8,25 @@ Matrix::Matrix(const size_t& size)
 	this->height = size;
 
 	values = new double[size * size];
+	this->delete_on_release = true;
+}
+
+Matrix::Matrix(double* values, const size_t& width, const size_t& height, const bool& delete_on_release)
+{
+	outputWide = defaultOutputWide;
+
+	this->values = values;
+	this->width = width;
+	this->height = height;
+	this->delete_on_release = delete_on_release;
 }
 
 Matrix::~Matrix()
 {
-	delete[] values;
+	if (delete_on_release)
+	{
+		delete[] values;
+	}
 }
 
 std::string Matrix::to_string() const
@@ -76,11 +90,11 @@ Vector operator*(const Matrix& m, const Vector& v)
 {
 	Vector result(m.height);
 
-	for (size_t i = 0; i < m.width; i++)
+	for (size_t i = 0; i < m.height; i++)
 	{
 		for (size_t j = 0; j < m.width; j++)
 		{
-			*result[i] += m.values[i * m.width + j] * v.get_values()[j];
+			*result[i] += m.values[i * m.height + j] * v.get_values()[j];
 		}
 	}
 
