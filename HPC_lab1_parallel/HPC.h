@@ -14,9 +14,9 @@ public:
 
 	int get_process_rank();
 
-	size_t size = 0;
-
 private:
+	double* distribute_matrix(const double* matrix, const int& size);
+
 	void log(std::string message);
 
 	int process_num;
