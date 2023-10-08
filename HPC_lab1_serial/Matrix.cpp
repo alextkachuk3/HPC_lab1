@@ -4,7 +4,8 @@ Matrix::Matrix(const size_t& size)
 {
 	outputWide = defaultOutputWide;
 
-	this->size = size;
+	this->width = size;
+	this->height = size;
 
 	values = new double[size * size];
 }
@@ -17,20 +18,25 @@ Matrix::~Matrix()
 std::string Matrix::to_string() const
 {
 	std::stringstream string;
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < height; i++)
 	{
-		for (size_t j = 0; j < size; j++)
+		for (size_t j = 0; j < width; j++)
 		{
-			string << std::setw(outputWide) << values[i * size + j];
+			string << std::setw(outputWide) << values[i * height + j];
 		}
 		string << std::setw(0) << std::endl;
 	}
 	return string.str();
 }
 
-size_t Matrix::get_size() const
+size_t Matrix::get_width() const
 {
-	return size;
+	return width;
+}
+
+size_t Matrix::get_height() const
+{
+	return height;
 }
 
 double* Matrix::get_values() const
@@ -45,11 +51,11 @@ void Matrix::set_output_wide(size_t& outputWide)
 
 void Matrix::dummy_data_initialization()
 {
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < height; i++)
 	{
-		for (size_t j = 0; j < size; j++)
+		for (size_t j = 0; j < width; j++)
 		{
-			values[i * size + j] = (double)i;
+			values[i * height + j] = (double)i;
 		}
 	}
 }
@@ -57,24 +63,24 @@ void Matrix::dummy_data_initialization()
 void Matrix::random_data_initialization()
 {
 	srand(clock());
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < height; i++)
 	{
-		for (size_t j = 0; j < size; j++)
+		for (size_t j = 0; j < width; j++)
 		{
-			values[i * size + j] = rand() / 1000.0;
+			values[i * height + j] = rand() / 1000.0;
 		}
 	}
 }
 
 Vector operator*(const Matrix& m, const Vector& v)
 {
-	Vector result(m.size);
+	Vector result(m.height);
 
-	for (size_t i = 0; i < m.size; i++)
+	for (size_t i = 0; i < m.width; i++)
 	{
-		for (size_t j = 0; j < m.size; j++)
+		for (size_t j = 0; j < m.width; j++)
 		{
-			*result[i] += m.values[i * m.size + j] * v.get_values()[j];
+			*result[i] += m.values[i * m.width + j] * v.get_values()[j];
 		}
 	}
 

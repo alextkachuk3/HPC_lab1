@@ -16,7 +16,8 @@ public:
 
 	std::string to_string() const;
 
-	size_t get_size() const;
+	size_t get_width() const;
+	size_t get_height() const;
 	double* get_values() const;
 	void set_output_wide(size_t& outputWide);
 
@@ -25,7 +26,8 @@ public:
 	friend std::ostream& operator<< (std::ostream& out, const Matrix& matrix);
 
 private:
-	size_t size;
+	size_t height;
+	size_t width;	
 	double* values;
 
 	size_t outputWide;

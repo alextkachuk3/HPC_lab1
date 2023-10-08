@@ -17,12 +17,12 @@ HPC::~HPC()
 
 Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vector)
 {
-	int size = (int)matrix.get_size();
+	int size = (int)matrix.get_width();
 	MPI_Bcast(&size, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
 	MPI_Bcast(vector.get_values(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-	distribute_matrix(matrix.get_values(), matrix.get_size());
+	distribute_matrix(matrix.get_values(), matrix.get_width());
 
 	return Vector(1);
 }
