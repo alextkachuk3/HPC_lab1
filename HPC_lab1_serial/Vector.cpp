@@ -7,7 +7,7 @@ Vector::Vector(const size_t& size)
 	delete_on_release = true;
 }
 
-Vector::Vector(double* values, const size_t& size, bool delete_on_release)
+Vector::Vector(double* values, const size_t& size, const bool& delete_on_release)
 {
 	this->delete_on_release = delete_on_release;
 	this->size = size;

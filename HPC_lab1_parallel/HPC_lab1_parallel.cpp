@@ -19,7 +19,11 @@ int main(int argc, char* argv[])
 		matrix.dummy_data_initialization();
 		vector.dummy_data_initialization();
 
-		size_t outputWide = 10;
+		double start, finish, duration;
+
+		start = MPI_Wtime();
+
+		size_t outputWide = 5;
 		size_t maxOutputMatrixSizeLimit = 15;
 
 		matrix.set_output_wide(outputWide);
@@ -27,6 +31,11 @@ int main(int argc, char* argv[])
 		std::cout << "Matrix" << std::endl << matrix;
 
 		hpc.matrix_vector_multiplication(matrix, vector);
+
+		finish = MPI_Wtime();
+		duration = finish - start;
+
+		std::cout << "Time of execution = " << duration << std::endl;
 	}
 	else
 	{

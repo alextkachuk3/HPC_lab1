@@ -19,7 +19,7 @@ Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vec
 {
 	distibute_vector(vector);
 
-	Matrix distributed_matrix = distribute_matrix(matrix.get_values(), matrix.get_width());
+	Matrix distributed_matrix = distribute_matrix(matrix.get_values(), matrix.get_height());
 
 	std::cout << distributed_matrix.to_string();
 
@@ -33,6 +33,7 @@ void HPC::matrix_vector_multiplication()
 	Matrix distributed_matrix = distribute_matrix(nullptr, vector.get_size());
 
 	std::cout << distributed_matrix.to_string();
+
 }
 
 int HPC::get_process_rank()
@@ -40,22 +41,17 @@ int HPC::get_process_rank()
 	return process_rank;
 }
 
-Matrix HPC::distribute_matrix(const double* matrix, const int& size)
+Matrix HPC::distribute_matrix(double* matrix, const int& size)
 {
 	int* send_ind = new int[process_num] {};
 	int* send_num = new int[process_num] {};
 
 	int rest_rows = size;
-	for (int i = 0; i < process_rank; i++)
-		rest_rows -= rest_rows / (process_num - i);
-	int row_num = rest_rows / (process_num - process_rank);
-	double* proc_rows = new double[row_num * size] {};
+	int row_num = size / process_num;
+	int cur_row = 0;
 
-	size_t height = row_num;
-
-	rest_rows = size;
-	row_num = (size / process_num);
 	send_num[0] = row_num * size;
+	send_ind[0] = 0;
 	for (int i = 1; i < process_num; i++) {
 		rest_rows -= row_num;
 		row_num = rest_rows / (process_num - i);
@@ -63,19 +59,23 @@ Matrix HPC::distribute_matrix(const double* matrix, const int& size)
 		send_ind[i] = send_ind[i - 1] + send_num[i - 1];
 	}
 
+	double* proc_rows = new double[send_num[process_rank]];
+
 	MPI_Scatterv(matrix, send_num, send_ind, MPI_DOUBLE, proc_rows,
 		send_num[process_rank], MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-	this->log("send_num " + std::to_string(send_num[process_rank]));
-	for (int i = 0; i < send_num[process_rank]; i++)
+	int height = size / process_num;
+
+	if (process_rank == process_num - 1 && process_num >= 2)
 	{
-		this->log(std::to_string(i) + " proc_rows " + std::to_string(proc_rows[i]));
+		if (send_num[process_num - 1] > send_num[process_num - 2])
+		{
+			height++;
+		}
 	}
 
-	size_t process_rows = send_num[process_rank];
-
 	delete[] send_ind;
-	delete[] send_num;
+	delete[] send_num;	
 
 	return Matrix(proc_rows, size, height, true);
 }
@@ -85,6 +85,7 @@ void HPC::distibute_vector(const Vector& vector)
 	size_t size = vector.get_size();
 	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
 	MPI_Bcast(vector.get_values(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
 }
 
 Vector HPC::distibute_vector()

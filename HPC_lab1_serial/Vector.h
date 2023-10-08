@@ -6,7 +6,7 @@ class Vector
 {
 public:
 	Vector(const size_t& size);
-	Vector(double* values, const size_t& size, bool delete_on_release = false);
+	Vector(double* values, const size_t& size, const bool& delete_on_release = false);
 	~Vector();
 
 	void dummy_data_initialization();

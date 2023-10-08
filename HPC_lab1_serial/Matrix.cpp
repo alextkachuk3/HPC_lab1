@@ -36,7 +36,7 @@ std::string Matrix::to_string() const
 	{
 		for (size_t j = 0; j < width; j++)
 		{
-			string << std::setw(outputWide) << values[i * height + j];
+			string << std::setw(outputWide) << values[i * width + j];
 		}
 		string << std::setw(0) << std::endl;
 	}
@@ -69,7 +69,7 @@ void Matrix::dummy_data_initialization()
 	{
 		for (size_t j = 0; j < width; j++)
 		{
-			values[i * height + j] = (double)i;
+			values[i * width + j] = (double)i;
 		}
 	}
 }
@@ -81,7 +81,7 @@ void Matrix::random_data_initialization()
 	{
 		for (size_t j = 0; j < width; j++)
 		{
-			values[i * height + j] = rand() / 1000.0;
+			values[i * width + j] = rand() / 1000.0;
 		}
 	}
 }
@@ -94,7 +94,7 @@ Vector operator*(const Matrix& m, const Vector& v)
 	{
 		for (size_t j = 0; j < m.width; j++)
 		{
-			*result[i] += m.values[i * m.height + j] * v.get_values()[j];
+			*result[i] += m.values[i * m.width + j] * v.get_values()[j];
 		}
 	}
 
