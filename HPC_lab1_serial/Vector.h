@@ -6,10 +6,12 @@ class Vector
 {
 public:
 	Vector(const size_t& size);
+	Vector(double* values, const size_t& size, bool delete_on_release = false);
 	~Vector();
 
 	void dummy_data_initialization();
 	void random_data_initialization();
+	size_t get_size() const;
 	double* get_values() const;
 
 	std::string to_string() const;
@@ -21,4 +23,6 @@ public:
 private:
 	size_t size;
 	double* values;
+
+	bool delete_on_release;
 };

@@ -17,10 +17,7 @@ HPC::~HPC()
 
 Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vector)
 {
-	int size = (int)matrix.get_width();
-	MPI_Bcast(&size, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-	MPI_Bcast(vector.get_values(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+	distibute_vector(vector);
 
 	distribute_matrix(matrix.get_values(), matrix.get_width());
 
@@ -29,17 +26,9 @@ Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vec
 
 void HPC::matrix_vector_multiplication()
 {
-	int size = 0;
+	Vector vector = distibute_vector();
 
-	MPI_Bcast(&size, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-	double* vector = new double[size] {};
-
-	MPI_Bcast(vector, size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
-	distribute_matrix(nullptr, size);
-
-	delete[] vector;
+	distribute_matrix(nullptr, vector.get_size());
 }
 
 int HPC::get_process_rank()
@@ -82,6 +71,24 @@ double* HPC::distribute_matrix(const double* matrix, const int& size)
 	delete[] proc_rows;
 
 	return nullptr;
+}
+
+void HPC::distibute_vector(const Vector& vector)
+{
+	size_t size = vector.get_size();
+	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
+	MPI_Bcast(vector.get_values(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+}
+
+Vector HPC::distibute_vector()
+{
+	size_t size = 0;
+	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
+
+	double* values = new double[size] {};
+	MPI_Bcast(values, size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+	return Vector(values, size, true);
 }
 
 void HPC::log(std::string message)

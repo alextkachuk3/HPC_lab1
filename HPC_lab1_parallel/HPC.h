@@ -16,6 +16,8 @@ public:
 
 private:
 	double* distribute_matrix(const double* matrix, const int& size);
+	void distibute_vector(const Vector& vector);
+	Vector distibute_vector();
 
 	void log(std::string message);
 

@@ -30,6 +30,8 @@ private:
 	size_t width;	
 	double* values;
 
+	bool delete_on_release;
+
 	size_t outputWide;
 	const static size_t defaultOutputWide = 2;
 };
