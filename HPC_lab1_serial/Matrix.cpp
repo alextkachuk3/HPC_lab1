@@ -76,6 +76,27 @@ void Matrix::set_output_wide(const size_t& outputWide)
 	this->outputWide = outputWide;
 }
 
+bool Matrix::operator==(const Matrix& other)
+{
+	if (this->width != other.width && this->height != other.height)
+	{
+		return false;
+	}
+
+	for (size_t i = 0; i < height; i++)
+	{
+		for (size_t j = 0; j < width; j++)
+		{
+			if (values[i * width + j] != other.values[i * width + j])
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 void Matrix::dummy_data_initialization()
 {
 	for (size_t i = 0; i < height; i++)

@@ -49,6 +49,15 @@ int main(int argc, char* argv[])
 		}
 
 		std::cout << "Time of execution = " << std::setprecision(15) << duration << std::endl;
+
+		if (result == matrix * vector)
+		{
+			std::cout << "The results of serial and parallel algorithms are identical!" << std::endl;
+		}
+		else
+		{
+			std::cout << "The results of serial and parallel algorithms are NOT identical!" << std::endl;
+		}
 	}
 	else
 	{

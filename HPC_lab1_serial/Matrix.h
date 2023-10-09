@@ -23,7 +23,8 @@ public:
 
 	void set_submutrix_index(const size_t& submatrix_index);
 	void set_output_wide(const size_t& outputWide);
-
+	
+	bool operator==(const Matrix& other);
 	friend Vector operator*(const Matrix& m, const Vector& v);
 
 	friend std::ostream& operator<< (std::ostream& out, const Matrix& matrix);

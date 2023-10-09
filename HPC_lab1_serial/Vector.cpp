@@ -66,6 +66,24 @@ std::ostream& operator<<(std::ostream& out, const Vector& vector)
 	return out;
 }
 
+bool Vector::operator==(const Vector& other)
+{
+	if (this->size != other.size)
+	{
+		return false;
+	}
+
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if (this->values[i] != other.values[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 double* Vector::operator[](const size_t& index) const
 {
 	return &values[index];

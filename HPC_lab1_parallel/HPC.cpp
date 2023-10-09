@@ -5,13 +5,10 @@ HPC::HPC(int argc, char* argv[])
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &process_num);
 	MPI_Comm_rank(MPI_COMM_WORLD, &process_rank);
-
-	this->log("Process started!");
 }
 
 HPC::~HPC()
 {
-	this->log("Process ended!");
 	MPI_Finalize();
 }
 
@@ -20,10 +17,12 @@ Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vec
 	int* send_ind = new int[process_num];
 	int* send_num = new int[process_num];
 
-	process_matrix_distribution(send_ind, send_num, vector.get_size());
+	int size = (int)vector.get_size();
+
+	process_matrix_distribution(send_ind, send_num, size);
 
 	distibute_vector(vector);
-	Matrix distributed_matrix = distribute_matrix(matrix.get_values(), matrix.get_height(), send_ind, send_num);
+	Matrix distributed_matrix = distribute_matrix(matrix.get_values(), size, send_ind, send_num);
 
 	Vector res = distributed_matrix * vector;
 
@@ -31,11 +30,11 @@ Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vec
 
 	for (int i = 0; i < process_num; i++)
 	{
-		send_ind[i] /= vector.get_size();
-		send_num[i] /= vector.get_size();
+		send_ind[i] /= size;
+		send_num[i] /= size;
 	}
 
-	MPI_Allgatherv(res.get_values(), res.get_size(), MPI_DOUBLE, final_result,
+	MPI_Allgatherv(res.get_values(), (int)res.get_size(), MPI_DOUBLE, final_result,
 		send_num, send_ind, MPI_DOUBLE, MPI_COMM_WORLD);
 
 	delete[] send_ind;
@@ -51,9 +50,11 @@ void HPC::matrix_vector_multiplication()
 
 	Vector vector = distibute_vector();
 
-	process_matrix_distribution(send_ind, send_num, vector.get_size());
+	int size = (int)vector.get_size();
 
-	Matrix distributed_matrix = distribute_matrix(vector.get_size(), send_ind, send_num);
+	process_matrix_distribution(send_ind, send_num, size);
+
+	Matrix distributed_matrix = distribute_matrix(size, send_ind, send_num);
 
 	Vector res = distributed_matrix * vector;
 
@@ -61,11 +62,11 @@ void HPC::matrix_vector_multiplication()
 
 	for (int i = 0; i < process_num; i++)
 	{
-		send_ind[i] /= vector.get_size();
-		send_num[i] /= vector.get_size();
+		send_ind[i] /= size;
+		send_num[i] /= size;
 	}
 
-	MPI_Allgatherv(res.get_values(), res.get_size(), MPI_DOUBLE, final_result,
+	MPI_Allgatherv(res.get_values(), (int)res.get_size(), MPI_DOUBLE, final_result,
 		send_num, send_ind, MPI_DOUBLE, MPI_COMM_WORLD);
 
 	delete[] send_ind;
@@ -104,16 +105,16 @@ Matrix HPC::distribute_matrix(const int& size, int*& send_ind, int*& send_num)
 
 void HPC::distibute_vector(const Vector& vector)
 {
-	size_t size = vector.get_size();
-	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
+	int size = (int)vector.get_size();
+	MPI_Bcast(&size, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
 	MPI_Bcast(vector.get_values(), size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 }
 
 Vector HPC::distibute_vector()
 {
-	size_t size = 0;
-	MPI_Bcast(&size, 1, MPI_UNSIGNED_LONG_LONG, 0, MPI_COMM_WORLD);
+	int size = 0;
+	MPI_Bcast(&size, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
 	double* values = new double[size] {};
 	MPI_Bcast(values, size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
