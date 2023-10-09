@@ -28,9 +28,11 @@ int main(int argc, char* argv[])
 
 		matrix.set_output_wide(outputWide);
 
-		std::cout << "Matrix" << std::endl << matrix;
+		// std::cout << "Matrix" << std::endl << matrix;
 
-		hpc.matrix_vector_multiplication(matrix, vector);
+		Vector result = hpc.matrix_vector_multiplication(matrix, vector);
+
+		std::cout << "Result:" << std::endl << result;
 
 		finish = MPI_Wtime();
 		duration = finish - start;
