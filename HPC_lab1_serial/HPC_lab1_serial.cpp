@@ -3,8 +3,18 @@
 
 #include "Matrix.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+	bool print_values = false;
+
+	for (size_t i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-p") == 0)
+		{
+			print_values = true;
+		}
+	}
+
 	time_t start, finish;
 	size_t size;
 	double duration;
@@ -13,12 +23,8 @@ int main()
 
 	std::cin >> size;
 
-	
-
 	Matrix matrix(size);
 	Vector vector(size);
-	//matrix.dummy_data_initialization();
-	//vector.dummy_data_initialization();
 	matrix.random_data_initialization();
 	vector.random_data_initialization();
 
@@ -26,24 +32,20 @@ int main()
 
 	Vector result = matrix * vector;
 
-	size_t outputWide = 10;
-	size_t maxOutputMatrixSizeLimit = 15;
-
-	matrix.set_output_wide(outputWide);
-
-	if (size <= maxOutputMatrixSizeLimit)
-	{
-		std::cout << "Matrix" << std::endl << matrix;
-
-		std::cout << "Vector" << std::endl << vector;
-
-		std::cout << "Result vector:" << std::endl << result;
-	}
-
 	finish = clock();
 
 	duration = (finish - start) / double(CLOCKS_PER_SEC);
 
-	std::cout << std::endl << "Time of execution: " << duration << std::endl;
+	if (print_values)
+	{
+		size_t outputWide = 10;
+		matrix.set_output_wide(outputWide);
+
+		std::cout << "Matrix" << std::endl << matrix;
+		std::cout << "Vector" << std::endl << vector;
+		std::cout << "Result vector:" << std::endl << result;
+	}
+
+	std::cout << std::endl << "Time of execution: " << std::setprecision(15) << duration << std::endl;
 
 }

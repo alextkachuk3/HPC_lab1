@@ -3,6 +3,16 @@
 
 int main(int argc, char* argv[])
 {
+	bool print_values = false;
+
+	for (size_t i = 0; i < argc; i++)
+	{
+		if (strcmp(argv[i], "-p") == 0)
+		{
+			print_values = true;
+		}
+	}
+
 	HPC hpc(argc, argv);
 
 	if (hpc.get_process_rank() == 0)
@@ -23,21 +33,22 @@ int main(int argc, char* argv[])
 
 		start = MPI_Wtime();
 
-		size_t outputWide = 7;
-		size_t maxOutputMatrixSizeLimit = 15;
-
-		matrix.set_output_wide(outputWide);
-
-		// std::cout << "Matrix" << std::endl << matrix;
-
 		Vector result = hpc.matrix_vector_multiplication(matrix, vector);
-
-		std::cout << "Result:" << std::endl << result;
 
 		finish = MPI_Wtime();
 		duration = finish - start;
 
-		std::cout << "Time of execution = " << duration << std::endl;
+		if (print_values)
+		{
+			size_t outputWide = 7;
+			matrix.set_output_wide(outputWide);
+
+			std::cout << "Vector" << std::endl << vector;
+			std::cout << "Matrix" << std::endl << matrix;
+			std::cout << "Result:" << std::endl << result;
+		}
+
+		std::cout << "Time of execution = " << std::setprecision(15) << duration << std::endl;
 	}
 	else
 	{

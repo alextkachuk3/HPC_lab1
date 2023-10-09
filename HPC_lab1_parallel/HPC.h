@@ -15,8 +15,8 @@ public:
 	int get_process_rank();
 
 private:
-	Matrix distribute_matrix(const double* matrix, const int& size);
-	Matrix distribute_matrix(const int& size);
+	Matrix distribute_matrix(double* matrix, const int& size, int*& send_ind, int*& send_num);
+	Matrix distribute_matrix(const int& size, int*& send_ind, int*& send_num);
 	void distibute_vector(const Vector& vector);
 	Vector distibute_vector();
 	void process_matrix_distribution(int* send_ind, int* send_num, const int& size);
