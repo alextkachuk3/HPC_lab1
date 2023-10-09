@@ -16,11 +16,13 @@ public:
 	void random_data_initialization();
 
 	std::string to_string() const;
-
 	size_t get_width() const;
 	size_t get_height() const;
+	size_t get_submatrix_index() const;
 	double* get_values() const;
-	void set_output_wide(size_t& outputWide);
+
+	void set_submutrix_index(const size_t& submatrix_index);
+	void set_output_wide(const size_t& outputWide);
 
 	friend Vector operator*(const Matrix& m, const Vector& v);
 
@@ -28,7 +30,8 @@ public:
 
 private:
 	size_t height;
-	size_t width;	
+	size_t width;
+	size_t submatrix_index;
 	double* values;
 
 	bool delete_on_release;

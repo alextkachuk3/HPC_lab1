@@ -66,7 +66,7 @@ std::ostream& operator<<(std::ostream& out, const Vector& vector)
 	return out;
 }
 
-double* Vector::operator[](size_t index) const
+double* Vector::operator[](const size_t& index) const
 {
 	return &values[index];
 }

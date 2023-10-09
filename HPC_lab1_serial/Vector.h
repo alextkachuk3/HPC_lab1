@@ -16,7 +16,7 @@ public:
 
 	std::string to_string() const;
 
-	double* operator[](size_t index) const;
+	double* operator[](const size_t& index) const;
 
 	friend std::ostream& operator<< (std::ostream& out, const Vector& vector);
 

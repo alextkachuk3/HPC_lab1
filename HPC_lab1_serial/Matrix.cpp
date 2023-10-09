@@ -3,6 +3,7 @@
 Matrix::Matrix(const size_t& size)
 {
 	outputWide = defaultOutputWide;
+	submatrix_index = 0;
 
 	this->width = size;
 	this->height = size;
@@ -14,10 +15,12 @@ Matrix::Matrix(const size_t& size)
 Matrix::Matrix(double* values, const size_t& width, const size_t& height, const bool& delete_on_release)
 {
 	outputWide = defaultOutputWide;
-
-	this->values = values;
+	submatrix_index = 0;
+	
 	this->width = width;
 	this->height = height;
+
+	this->values = values;
 	this->delete_on_release = delete_on_release;
 }
 
@@ -53,12 +56,22 @@ size_t Matrix::get_height() const
 	return height;
 }
 
+size_t Matrix::get_submatrix_index() const
+{
+	return submatrix_index;
+}
+
 double* Matrix::get_values() const
 {
 	return values;
 }
 
-void Matrix::set_output_wide(size_t& outputWide)
+void Matrix::set_submutrix_index(const size_t& submatrix_index)
+{
+	this->submatrix_index = submatrix_index;
+}
+
+void Matrix::set_output_wide(const size_t& outputWide)
 {
 	this->outputWide = outputWide;
 }
