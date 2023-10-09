@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 			std::cout << "Result:" << std::endl << result;
 		}
 
-		std::cout << "Time of execution = " << std::setprecision(15) << duration << std::endl;
+		std::cout << "Time of execution = " << std::fixed << std::setprecision(40) << duration << std::endl;
 
 		if (result == matrix * vector)
 		{

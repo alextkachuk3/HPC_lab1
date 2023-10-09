@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <chrono>
 
 #include "Matrix.h"
 
@@ -15,9 +16,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	time_t start, finish;
 	size_t size;
-	double duration;
 
 	std::cout << "Enter size of matrix and vector:";
 
@@ -28,13 +27,13 @@ int main(int argc, char* argv[])
 	matrix.random_data_initialization();
 	vector.random_data_initialization();
 
-	start = clock();
+	auto start = std::chrono::high_resolution_clock::now();
 
 	Vector result = matrix * vector;
 
-	finish = clock();
+	auto finish = std::chrono::high_resolution_clock::now();
 
-	duration = (finish - start) / double(CLOCKS_PER_SEC);
+	auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count() * 1.0e-9;
 
 	if (print_values)
 	{
@@ -46,6 +45,6 @@ int main(int argc, char* argv[])
 		std::cout << "Result vector:" << std::endl << result;
 	}
 
-	std::cout << std::endl << "Time of execution: " << std::setprecision(15) << duration << std::endl;
+	std::cout << std::endl << "Time of execution: " << std::fixed << std::setprecision(40) << duration << std::endl;
 
 }
