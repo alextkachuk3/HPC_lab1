@@ -40,6 +40,8 @@ Vector HPC::matrix_vector_multiplication(const Matrix& matrix, const Vector& vec
 	delete[] send_ind;
 	delete[] send_num;
 
+	MPI_Barrier(MPI_COMM_WORLD);
+
 	return Vector(final_result, vector.get_size(), true);
 }
 
@@ -68,6 +70,8 @@ void HPC::matrix_vector_multiplication()
 
 	MPI_Allgatherv(res.get_values(), (int)res.get_size(), MPI_DOUBLE, final_result,
 		send_num, send_ind, MPI_DOUBLE, MPI_COMM_WORLD);
+
+	MPI_Barrier(MPI_COMM_WORLD);
 
 	delete[] send_ind;
 	delete[] send_num;
