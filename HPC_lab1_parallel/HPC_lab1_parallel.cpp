@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 				matrix.random_data_initialization();
 				vector.random_data_initialization();
 
-				std::cout << "Matrix size " << evaluation_sizes[i] << "x"
+				std::cout << std::endl << "Matrix size " << evaluation_sizes[i] << "x"
 					<< evaluation_sizes[i] << ":" << std::endl;
 
 				test_matrix_vector_multiplication(evaluation_sizes[i], hpc);
