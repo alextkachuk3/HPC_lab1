@@ -27,7 +27,7 @@ std::string Vector::to_string() const
 	std::stringstream string;
 	for (size_t i = 0; i < size; i++)
 	{
-		string << values[i] << std::endl;
+		string << std::fixed << std::setprecision(4) << values[i] << std::endl;
 	}
 	return string.str();
 }

@@ -39,7 +39,7 @@ std::string Matrix::to_string() const
 	{
 		for (size_t j = 0; j < width; j++)
 		{
-			string << std::setw(outputWide) << values[i * width + j];
+			string << std::setw(outputWide) << std::fixed << std::setprecision(4) << values[i * width + j];
 		}
 		string << std::setw(0) << std::endl;
 	}

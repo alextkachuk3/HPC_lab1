@@ -13,8 +13,6 @@ void test_matrix_vector_multiplication(const size_t& size, HPC& hpc)
 
 	matrix.random_data_initialization();
 	vector.random_data_initialization();
-	matrix.dummy_data_initialization();
-	vector.dummy_data_initialization();
 
 	double start, finish, duration;
 
@@ -27,15 +25,15 @@ void test_matrix_vector_multiplication(const size_t& size, HPC& hpc)
 
 	if (print_values)
 	{
-		size_t outputWide = 7;
+		size_t outputWide = 10;
 		matrix.set_output_wide(outputWide);
 
-		std::cout << "Vector" << std::endl << vector;
 		std::cout << "Matrix" << std::endl << matrix;
+		std::cout << "Vector" << std::endl << vector;		
 		std::cout << "Result:" << std::endl << result;
 	}
 
-	std::cout << "Time of execution = " << std::fixed << std::setprecision(40) << duration << std::endl;
+	std::cout << "Time of execution = " << std::fixed << std::setprecision(12) << duration << std::endl;
 
 	if (result == matrix * vector)
 	{

@@ -32,7 +32,7 @@ void test_matrix_vector_multiplication(const size_t& size)
 		std::cout << "Result vector:" << std::endl << result;
 	}
 
-	std::cout << "Time of execution: " << std::fixed << std::setprecision(40) << duration << std::endl;
+	std::cout << "Time of execution: " << std::fixed << std::setprecision(12) << duration << std::endl;
 }
 
 int main(int argc, char* argv[])
